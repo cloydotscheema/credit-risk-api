@@ -1,0 +1,38 @@
+# fastapi
+# uvicorn[standard]
+# pydantic
+# sqlalchemy
+# databases
+
+
+# FastAPI and server
+fastapi==0.115.0
+uvicorn[standard]==0.30.6
+
+# ORM and database
+sqlalchemy==2.0.34
+databases==0.9.0   # async support if you use it
+
+# Data validation / settings
+pydantic==2.9.2
+pydantic-settings==2.5.2
+
+# SQLite async
+aiosqlite==0.20.0
+
+# Environment variables
+python-dotenv==1.0.1
+
+# Machine Learning stack
+numpy==2.1.1
+pandas==2.2.2
+scikit-learn==1.5.1
+joblib==1.4.2      # saving/loading models
+
+# Optional visualization (if needed)
+matplotlib==3.9.2
+seaborn==0.13.2
+
+# Testing
+pytest==8.3.2
+httpx==0.27.0
