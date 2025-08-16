@@ -1,5 +1,6 @@
 from fastapi import FastAPI
 from app.models.customer import CustomerData
+from app.utils.risk_calculator import calculate_credit_risk
 
 app = FastAPI(title="Credit Risk API")
 
@@ -10,15 +11,14 @@ def health_check():
 @app.post("/predict-risk")
 def predict_risk(customer: CustomerData):
     """
-    Dummy endpoint to predict credit risk.
+    Real logic.
     """
-    # Simple dummy logic for now
-    if customer.credit_history_score < 50 or customer.existing_loans > 2:
-        risk = "High"
-    elif customer.credit_history_score < 75:
-        risk = "Medium"
-    else:
-        risk = "Low"
+    risk = calculate_credit_risk(
+        age=customer.age,
+        income=customer.income,
+        credit_history_score=customer.credit_history_score,
+        existing_loans=customer.existing_loans
+    )
     
     return {
         "name": customer.name,
