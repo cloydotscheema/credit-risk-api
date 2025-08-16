@@ -2,6 +2,8 @@ from fastapi import FastAPI
 from app.models.customer import CustomerData
 from app.utils.risk_calculator import calculate_credit_risk
 from app.models.db_models import SessionLocal, PredictionLog
+from typing import List
+
 
 app = FastAPI(title="Credit Risk API")
 
@@ -40,3 +42,25 @@ def predict_risk(customer: CustomerData):
         "name": customer.name,
         "risk": risk
     }
+
+
+@app.get("/prediction-history")
+def get_prediction_history():
+    db = SessionLocal()
+    logs = db.query(PredictionLog).all()
+    db.close()
+
+    # Convert ORM objects to dicts
+    history = []
+    for log in logs:
+        history.append({
+            "id": log.id,
+            "name": log.name,
+            "age": log.age,
+            "income": log.income,
+            "credit_history_score": log.credit_history_score,
+            "existing_loans": log.existing_loans,
+            "risk": log.risk
+        })
+
+    return {"history": history}
